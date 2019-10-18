@@ -1,0 +1,101 @@
+openapi: 3.0.0
+info:
+  title: City Activity
+  description: Keep track of city information
+  version: 0.0.1
+servers: 
+    - url: http://localhost:8080
+      description: Local dev server
+
+
+paths:
+  /city:
+    get:
+      summary: List all cities
+      responses:
+        '200':
+          description: City List 
+          content:
+            application/json:
+              schema:
+               type: string
+               
+    post:
+      summary: Add a city to the list
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/City'
+      responses:
+        '201':
+          description: CREATED
+          content:
+            application/json:
+              schema:
+               type: string
+             
+               
+  /city{name}:
+    get:
+      summary: list one city by name
+      parameters: 
+        - name: name
+          in: path
+          required: true
+          description: name of city
+          schema: 
+            type: string
+        
+      responses:
+        '200':
+          description: City
+          content:
+            application/json:
+              schema:
+               $ref: '#/components/schemas/City'
+        '422':
+          description: No city with that name
+    delete:
+      summary: delete a city to the list
+      parameters: 
+        - name: name
+          in: path
+          required: true
+          description: name of city
+          schema: 
+            type: string
+      responses:
+        '200':
+          description: DELETED
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+components:
+  schemas:
+  
+    City:
+      type: object
+      properties:
+        name:
+          type: string
+        state:
+          type: string
+        population:
+          type: number
+               
+               
+         
